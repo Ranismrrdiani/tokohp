@@ -4,8 +4,7 @@ from odoo import api, fields, models
 class Handphone(models.Model):
     _name ='toko.handphone'
     _description = 'New Description'
-    name = fields.Char(string='name')
-    
+    name = fields.Char(string='name')  
    
    
     
