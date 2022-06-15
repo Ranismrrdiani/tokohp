@@ -42,11 +42,11 @@ class OrderHandphoneDetail(models.Model):
     qty = fields.Integer(string='Quantity')
     
     @api.constrains('qty')
-    def _check_stok(self):
+    def _check_stok_hp(self):
         for record in self:
             bahan = self.env['toko.handphone'].search([('stok_hp', '<',record.qty)])
             if bahan:
-                raise ValidationError("Stok Tidak Cukup")
+                raise ValidationError("Stok Hp Tidak Cukup")
     
     harga = fields.Integer(compute='_compute_harga', string='harga')
     
@@ -60,7 +60,7 @@ class OrderHandphoneDetail(models.Model):
     def create(self,vals):
         record = super(OrderHandphoneDetail, self).create(vals) 
         if record.qty:
-            self.env['toko.handphone'].search([('id','=',record.handphone_id.id)]).write({'stok':record.handphone_id.stok-record.qty})
+            self.env['toko.handphone'].search([('id','=',record.handphone_id.id)]).write({'stok_hp':record.handphone_id.stok_hp-record.qty})
             return record
     
             
